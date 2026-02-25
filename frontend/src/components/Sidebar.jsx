@@ -52,7 +52,7 @@ export default function Sidebar() {
           <span className="text-xs">Engine</span>
           <ChevronDown
             size={14}
-            className={`transition-transform ${settingsOpen ? "rotate-180" : ""}`}
+            className={`transition-transform ${settingsOpen ? "rotate-0" : "rotate-180"}`}
           />
         </button>
 

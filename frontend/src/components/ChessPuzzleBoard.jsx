@@ -85,7 +85,7 @@ export default function ChessPuzzleBoard() {
     setStatus("blunder");
 
     try {
-      const res = await fetch("http://localhost:5000/api/continuation", {
+      const res = await fetch("/api/continuation", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

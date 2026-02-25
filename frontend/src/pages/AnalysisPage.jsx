@@ -24,7 +24,7 @@ export default function AnalysisPage() {
     setLoading(true);
     setEvalError("");
     try {
-      const res = await fetch("http://localhost:5000/api/evaluate", {
+      const res = await fetch("/api/evaluate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ fen, depth: engineDepth }),

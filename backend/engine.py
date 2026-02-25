@@ -1,7 +1,11 @@
 import os
+import platform
 from stockfish import Stockfish
 
-STOCKFISH_PATH = os.path.join(os.path.dirname(__file__), 'stockfish', 'stockfish.exe')
+if platform.system() == "Windows":
+    STOCKFISH_PATH = os.path.join(os.path.dirname(__file__), 'stockfish', 'stockfish.exe')
+else:
+    STOCKFISH_PATH = os.environ.get("STOCKFISH_PATH", "/usr/games/stockfish")
 
 stockfish = Stockfish(STOCKFISH_PATH)
 stockfish.set_depth(12)

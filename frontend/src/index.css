@@ -20,7 +20,7 @@
 
 @keyframes fixed-circle-in {
   from {
-    clip-path: circle(0px at 0% 0%);
+    clip-path: circle(0px at 100% 0%);
   }
   to {
     clip-path: circle(150vmax at 0% 0%);
