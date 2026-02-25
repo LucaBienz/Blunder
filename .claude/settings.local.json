@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(npm uninstall react-icons)",
-      "Bash(npx react-scripts build)"
+      "Bash(npx react-scripts build)",
+      "Bash(npm run build)"
     ]
   }
 }

@@ -5,7 +5,7 @@ export default function PuzzlePage() {
   return (
     <div className="flex min-h-screen bg-white dark:bg-gray-900">
       <Sidebar />
-      <main className="flex-1 ml-40 flex flex-col items-center justify-center p-6">
+      <main className="flex-1 ml-40 flex flex-col items-center justify-center p-8">
         <ChessPuzzleBoard />
       </main>
     </div>

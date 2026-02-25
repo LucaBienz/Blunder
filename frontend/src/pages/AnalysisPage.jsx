@@ -93,15 +93,15 @@ export default function AnalysisPage() {
   return (
     <div className="flex min-h-screen bg-white dark:bg-gray-900">
       <Sidebar />
-      <main className="flex-1 ml-40 flex items-center justify-center p-6 gap-6">
-        <div className="flex gap-4">
-          <div className="w-6 rounded-full overflow-hidden border border-gray-300 dark:border-gray-600 flex flex-col">
+      <main className="flex-1 ml-40 flex items-center justify-center p-8 gap-8">
+        <div className="flex gap-6">
+          <div className="w-8 rounded-full overflow-hidden border border-gray-400 dark:border-gray-600 flex flex-col">
             <div
-              className="bg-gray-800 dark:bg-gray-200 transition-all duration-500"
+              className="bg-gray-900 transition-all duration-500"
               style={{ height: `${100 - whiteBarPercent}%` }}
             />
             <div
-              className="bg-white dark:bg-gray-800 transition-all duration-500"
+              className="bg-white transition-all duration-500"
               style={{ height: `${whiteBarPercent}%` }}
             />
           </div>
@@ -109,59 +109,59 @@ export default function AnalysisPage() {
           <Chessboard
             position={game.fen()}
             onPieceDrop={onDrop}
-            boardWidth={440}
+            boardWidth={520}
             boardOrientation={orientation}
             animationDuration={200}
           />
         </div>
 
-        <div className="w-72 flex flex-col gap-4">
-          <div className="flex gap-2">
+        <div className="w-80 flex flex-col gap-5">
+          <div className="flex gap-3">
             <button
               onClick={() =>
                 setOrientation((o) => (o === "white" ? "black" : "white"))
               }
-              className="flex items-center gap-1 px-3 py-2 text-sm rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+              className="flex items-center gap-1.5 px-4 py-2.5 text-base rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
             >
-              <FlipVertical size={16} />
+              <FlipVertical size={18} />
               Flip
             </button>
             <button
               onClick={resetBoard}
-              className="flex items-center gap-1 px-3 py-2 text-sm rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
+              className="flex items-center gap-1.5 px-4 py-2.5 text-base rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 transition"
             >
-              <RotateCcw size={16} />
+              <RotateCcw size={18} />
               Reset
             </button>
           </div>
 
-          <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
-            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+          <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-5">
+            <h3 className="text-base font-medium text-gray-500 dark:text-gray-400 mb-3">
               Evaluation
             </h3>
             {loading ? (
-              <p className="text-sm text-gray-400">Analyzing...</p>
+              <p className="text-base text-gray-400">Analyzing...</p>
             ) : evalError ? (
-              <p className="text-sm text-red-500 dark:text-red-400">
+              <p className="text-base text-red-500 dark:text-red-400">
                 {evalError}
               </p>
             ) : evalData ? (
-              <div className="space-y-2">
-                <p className="text-2xl font-bold text-gray-900 dark:text-gray-100">
+              <div className="space-y-3">
+                <p className="text-3xl font-bold text-gray-900 dark:text-gray-100">
                   {formatEval(evalData.evaluation)}
                 </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
+                <p className="text-base text-gray-600 dark:text-gray-400">
                   Best move: <span className="font-mono">{evalData.best_move}</span>
                 </p>
                 {evalData.best_line && evalData.best_line.length > 0 && (
                   <div>
-                    <p className="text-xs text-gray-500 dark:text-gray-400 mb-1">
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                       Top lines
                     </p>
                     {evalData.best_line.slice(0, 3).map((line, i) => (
                       <div
                         key={i}
-                        className="flex justify-between text-xs font-mono text-gray-600 dark:text-gray-400"
+                        className="flex justify-between text-sm font-mono text-gray-600 dark:text-gray-400"
                       >
                         <span>{line.Move}</span>
                         <span>
@@ -177,18 +177,18 @@ export default function AnalysisPage() {
             ) : null}
           </div>
 
-          <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4">
-            <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">
+          <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-5">
+            <h3 className="text-base font-medium text-gray-500 dark:text-gray-400 mb-3">
               Move History
             </h3>
             {moveHistory.length === 0 ? (
-              <p className="text-sm text-gray-400">No moves yet</p>
+              <p className="text-base text-gray-400">No moves yet</p>
             ) : (
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-2">
                 {moveHistory.map((move, i) => (
                   <span
                     key={i}
-                    className="text-xs font-mono px-1.5 py-0.5 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
+                    className="text-sm font-mono px-2 py-1 rounded bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300"
                   >
                     {i % 2 === 0 && (
                       <span className="text-gray-400 mr-0.5">

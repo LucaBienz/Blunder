@@ -199,9 +199,9 @@ export default function ChessPuzzleBoard() {
   };
 
   return (
-    <div className="flex flex-col items-center gap-4">
-      <div className="flex items-center gap-4">
-        <span className="text-sm text-gray-500 dark:text-gray-400">
+    <div className="flex flex-col items-center gap-6">
+      <div className="flex items-center gap-5">
+        <span className="text-base text-gray-500 dark:text-gray-400">
           {puzzle.theme}
         </span>
         <span className="text-xs px-2 py-0.5 rounded-full bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300">
@@ -212,7 +212,7 @@ export default function ChessPuzzleBoard() {
       <Chessboard
         position={game.fen()}
         onPieceDrop={onDrop}
-        boardWidth={440}
+        boardWidth={520}
         boardOrientation={boardOrientation}
         customSquareStyles={getSquareStyles()}
         animationDuration={200}
@@ -220,7 +220,7 @@ export default function ChessPuzzleBoard() {
       />
 
       <p
-        className={`text-sm font-medium ${
+        className={`text-base font-medium ${
           status === "solved"
             ? "text-green-600 dark:text-green-400"
             : status === "blunder" || status === "blunder-no-engine"
@@ -231,23 +231,23 @@ export default function ChessPuzzleBoard() {
         {statusMessages[status]}
       </p>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-4">
         <button
           onClick={goToPrevPuzzle}
           disabled={puzzleIndex === 0}
-          className="px-4 py-2 text-sm rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="px-5 py-2.5 text-base rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition"
         >
           Previous
         </button>
 
-        <span className="text-sm text-gray-500 dark:text-gray-400">
+        <span className="text-base text-gray-500 dark:text-gray-400">
           {puzzleIndex + 1} / {puzzles.length}
         </span>
 
         <button
           onClick={goToNextPuzzle}
           disabled={puzzleIndex === puzzles.length - 1}
-          className="px-4 py-2 text-sm rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="px-5 py-2.5 text-base rounded-lg bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-300 dark:hover:bg-gray-600 disabled:opacity-40 disabled:cursor-not-allowed transition"
         >
           Next
         </button>
@@ -255,15 +255,15 @@ export default function ChessPuzzleBoard() {
         <button
           onClick={showHint}
           disabled={status !== "your-turn"}
-          className="flex items-center gap-1 px-4 py-2 text-sm rounded-lg bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 hover:bg-yellow-200 dark:hover:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed transition"
+          className="flex items-center gap-2 px-5 py-2.5 text-base rounded-lg bg-yellow-100 dark:bg-yellow-900 text-yellow-700 dark:text-yellow-300 hover:bg-yellow-200 dark:hover:bg-yellow-800 disabled:opacity-40 disabled:cursor-not-allowed transition"
         >
-          <Lightbulb size={16} />
+          <Lightbulb size={18} />
           Hint
         </button>
 
         <button
           onClick={() => loadPuzzle(puzzleIndex)}
-          className="px-4 py-2 text-sm rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition"
+          className="px-5 py-2.5 text-base rounded-lg bg-purple-600 text-white hover:bg-purple-700 transition"
         >
           Reset
         </button>
