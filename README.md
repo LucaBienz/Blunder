@@ -19,7 +19,9 @@ Born out of frustration with chess.com locking position evaluation behind a payw
 ## Tech Stack
 
 **Frontend:** React, Tailwind CSS, react-chessboard, chess.js, lucide-react
+
 **Backend:** Flask, python-stockfish
+
 **Engine:** [Stockfish](https://stockfishchess.org/download/) (local binary)
 
 ## Getting Started
