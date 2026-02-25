@@ -5,11 +5,36 @@ import { Lightbulb } from "lucide-react";
 import puzzles from "../data/puzzles";
 import { useSettings } from "../context/SettingsContext";
 
+function useBoardWidth() {
+  const [width, setWidth] = useState(() => {
+    if (typeof window === "undefined") return 520;
+    const vw = window.innerWidth;
+    if (vw < 768) return Math.min(vw - 32, 520);
+    return 520;
+  });
+
+  useEffect(() => {
+    const handler = () => {
+      const vw = window.innerWidth;
+      if (vw < 768) {
+        setWidth(Math.min(vw - 32, 520));
+      } else {
+        setWidth(520);
+      }
+    };
+    window.addEventListener("resize", handler);
+    return () => window.removeEventListener("resize", handler);
+  }, []);
+
+  return width;
+}
+
 const PUNISHMENT_DELAY = 600;
 const OPPONENT_DELAY = 400;
 
 export default function ChessPuzzleBoard() {
   const { engineDepth, punishmentMoves } = useSettings();
+  const boardWidth = useBoardWidth();
   const [puzzleIndex, setPuzzleIndex] = useState(0);
   const [game, setGame] = useState(new Chess());
   const [moveIndex, setMoveIndex] = useState(0);
@@ -139,11 +164,16 @@ export default function ChessPuzzleBoard() {
     if (status !== "your-turn" || animatingRef.current) return false;
 
     const gameCopy = new Chess(game.fen());
-    const result = gameCopy.move({
-      from: sourceSquare,
-      to: targetSquare,
-      promotion: "q",
-    });
+    let result;
+    try {
+      result = gameCopy.move({
+        from: sourceSquare,
+        to: targetSquare,
+        promotion: "q",
+      });
+    } catch {
+      return false;
+    }
 
     if (!result) return false;
 
@@ -212,7 +242,7 @@ export default function ChessPuzzleBoard() {
       <Chessboard
         position={game.fen()}
         onPieceDrop={onDrop}
-        boardWidth={520}
+        boardWidth={boardWidth}
         boardOrientation={boardOrientation}
         customSquareStyles={getSquareStyles()}
         animationDuration={200}
@@ -231,7 +261,7 @@ export default function ChessPuzzleBoard() {
         {statusMessages[status]}
       </p>
 
-      <div className="flex items-center gap-4">
+      <div className="flex flex-wrap items-center justify-center gap-3">
         <button
           onClick={goToPrevPuzzle}
           disabled={puzzleIndex === 0}

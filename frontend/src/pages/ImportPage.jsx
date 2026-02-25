@@ -36,7 +36,7 @@ export default function ImportPage() {
   return (
     <div className="flex min-h-screen bg-white dark:bg-gray-900">
       <Sidebar />
-      <main className="flex-1 ml-40 flex flex-col items-center justify-center p-6">
+      <main className="flex-1 md:ml-40 flex flex-col items-center justify-center p-6 pb-24 md:pb-6">
         <div className="w-full max-w-lg flex flex-col gap-6">
           <h1 className="text-3xl font-bold text-purple-700 dark:text-purple-300 text-center">
             Import Position

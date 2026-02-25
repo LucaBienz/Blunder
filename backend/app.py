@@ -16,14 +16,16 @@ CORS(app, origins=[allowed_origin])
 
 limiter = Limiter(get_remote_address, app=app, default_limits=["60 per minute"])
 
-FEN_REGEX = re.compile(
-    r"^[rnbqkpRNBQKP1-8/]+ [wb] [KQkq-]+ [a-h1-8-]+ \d+ \d+$"
-)
+FEN_SAFE = re.compile(r"^[rnbqkpRNBQKP0-9/ wb\-]+$")
 
 def validate_fen(fen):
-    if not isinstance(fen, str) or len(fen) > 100:
+    if not isinstance(fen, str) or len(fen) > 200:
         return False
-    return bool(FEN_REGEX.match(fen.strip()))
+    stripped = fen.strip()
+    parts = stripped.split()
+    if len(parts) != 6:
+        return False
+    return bool(FEN_SAFE.match(stripped))
 
 def clamp_depth(depth):
     if depth is None:
