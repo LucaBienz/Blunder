@@ -1,3 +1,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+  display: block;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  animation: fixed-circle-in 0.6s ease-out forwards;
+}
+
+@keyframes fixed-circle-in {
+  from {
+    clip-path: circle(0px at 0% 0%);
+  }
+  to {
+    clip-path: circle(150vmax at 0% 0%);
+  }
+}

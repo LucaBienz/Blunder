@@ -1,0 +1,15 @@
+This project uses the following third-party software:
+
+Stockfish
+---------
+Copyright (C) 2004-2025 The Stockfish developers
+License: GNU General Public License v3.0 (GPLv3)
+Source: https://github.com/official-stockfish/Stockfish
+
+Stockfish is a free, powerful UCI chess engine. This project communicates
+with a locally installed Stockfish binary via the python-stockfish wrapper.
+Stockfish is not bundled with this project — users must download it separately
+from https://stockfishchess.org/download/.
+
+The full text of the GPLv3 license can be found in the LICENSE file at the
+root of this repository, or at https://www.gnu.org/licenses/gpl-3.0.html.

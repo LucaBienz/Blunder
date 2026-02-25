@@ -1,19 +1,23 @@
-import React, { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import { useSettings } from "./context/SettingsContext";
 import LandingPage from "./pages/LandingPage";
 import PuzzlePage from "./pages/PuzzlePage";
-import SettingsCog from "./components/SettingsCog";
+import ImportPage from "./pages/ImportPage";
+import AnalysisPage from "./pages/AnalysisPage";
+import ThemeToggle from "./components/ThemeToggle";
 
 export default function App() {
-  const [darkMode, setDarkMode] = useState(false);
+  const { darkMode } = useSettings();
 
   return (
     <div className={darkMode ? "dark" : ""}>
-      <SettingsCog darkMode={darkMode} setDarkMode={setDarkMode} />
-        <Routes>
-          <Route path="/" element={<LandingPage darkMode={darkMode} setDarkMode={setDarkMode} />} />
-          <Route path="/puzzle" element={<PuzzlePage darkMode={darkMode} setDarkMode={setDarkMode} />} />
-        </Routes>
+      <ThemeToggle />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/puzzle" element={<PuzzlePage />} />
+        <Route path="/import" element={<ImportPage />} />
+        <Route path="/analysis" element={<AnalysisPage />} />
+      </Routes>
     </div>
   );
 }

@@ -1,112 +1,91 @@
-# ♟️ BlunderBuddy
+# Blunder !
 
-A free, self-hostable chess tactics trainer that lets you practice puzzles, track progress, and understand *why* a move is wrong - powered by Stockfish. Inspired by the limitations of existing puzzle platforms, this app helps you *learn from your mistakes*.
+A free, self-hostable chess tactics trainer. Solve puzzles, see *why* your move was wrong by watching the engine's punishment line play out, and analyze your own games - all powered by Stockfish running locally.
 
-## 🧠 Key Features
+Born out of frustration with chess.com locking position evaluation behind a paywall.
 
-- Solve chess puzzles interactively (drag-and-drop)
-- Get instant feedback (correct or not)
-- Analyze *why* a wrong move is bad with the help of Stockfish
-- Toggle “Next Best Moves” after mistakes to see the resulting position
-- Run fully locally - no internet or server costs
-- Store user attempts in a lightweight SQLite database
+## Features
 
-## 🛠️ Tech Stack
+- Interactive puzzle solving with drag-and-drop
+- Blunder visualization - wrong moves trigger a multi-move punishment line showing what the opponent would play
+- Configurable punishment line length (2–8 moves)
+- Hint system that highlights the piece you should move
+- FEN import - paste a position from chess.com or any other source
+- Free-play analysis board with eval bar and top engine lines
+- Adjustable Stockfish depth (1–20)
+- Dark mode with animated view transition
+- Runs entirely offline, no accounts or subscriptions
 
-**Frontend**: React, Tailwind CSS  
-**Backend**: Flask (REST API), Stockfish integration  
-**Database**: SQLite  
-**Chess Engine**: [Stockfish](https://stockfishchess.org/download/) (installed locally by user)
+## Tech Stack
 
-## 🚀 Getting Started
+**Frontend:** React, Tailwind CSS, react-chessboard, chess.js, lucide-react
+**Backend:** Flask, python-stockfish
+**Engine:** [Stockfish](https://stockfishchess.org/download/) (local binary)
 
-### 📦 Prerequisites
+## Getting Started
+
+### Prerequisites
 
 - Python 3.8+
 - Node.js + npm
-- Git
-- Download Stockfish binary:
-  - [Stockfish Downloads](https://stockfishchess.org/download/)
-  - Place it in `backend/stockfish/` or update the path in `engine.py`
+- Stockfish binary - download from [stockfishchess.org](https://stockfishchess.org/download/) and place it in `backend/stockfish/`
 
-### ⚙️ Backend Setup
+### Backend
 
 ```bash
-git clone https://github.com/yourusername/BlunderBuddy.git
-cd BlunderBuddy/backend
-
-python3 -m venv venv
-source venv/bin/activate  # or .\venv\Scripts\activate on Windows
+cd backend
+python -m venv venv
+source venv/bin/activate  # Windows: .\venv\Scripts\activate
 pip install -r requirements.txt
-
-# Start the Flask server
 python app.py
 ```
 
-> 🧠 Make sure the `stockfish` binary is present at `./stockfish/stockfish`  
-> You can change the path in `engine.py` if needed.
+The Flask server runs at `http://localhost:5000`.
 
-### 🖥️ Frontend Setup
+Make sure the Stockfish binary is at `backend/stockfish/stockfish.exe` (or update the path in `engine.py`).
+
+### Frontend
 
 ```bash
-cd ../frontend
+cd frontend
 npm install
-npm run dev
+npm start
 ```
 
-This starts the React frontend at [http://localhost:3000](http://localhost:3000).
+The React app runs at `http://localhost:3000`.
 
-## ♟️ Puzzle Format
+## Project Structure
 
-Puzzles are stored in SQLite and include:
+```
+backend/
+  app.py              Flask API (evaluate, continuation, top-lines)
+  engine.py           Stockfish wrapper
+  stockfish/          Stockfish binary goes here
 
-- FEN (position)
-- Solution moves (in UCI format)
-- Themes/tags (optional)
-- Rating (optional)
+frontend/
+  src/
+    components/       ChessPuzzleBoard, Sidebar, ThemeToggle
+    context/          SettingsContext (dark mode, engine config)
+    data/             Hardcoded puzzle set
+    pages/            Landing, Puzzle, Import, Analysis
+```
 
-You can preload puzzles into the database or build an upload tool later.
+## API Endpoints
 
-## 🧪 Testing
+| Method | Route | Description |
+|--------|-------|-------------|
+| POST | `/api/evaluate` | Evaluate a FEN position (best move, eval, top lines) |
+| POST | `/api/continuation` | Get a multi-move best-play continuation from a position |
+| POST | `/api/top-lines` | Get top N engine lines for a position |
 
-- Backend: Pytest
-- Frontend: Cypress (optional)
+All endpoints accept an optional `depth` parameter.
 
-## 🤖 Stockfish Integration
+## License
 
-This project uses the [`stockfish`](https://pypi.org/project/stockfish/) Python package to:
-- Evaluate the best move from a given position
-- Show a sequence of responses after incorrect user input
+This project is licensed under the [GNU General Public License v3.0](LICENSE).
 
-> All engine analysis is done locally - no cloud API needed.
+This project uses [Stockfish](https://github.com/official-stockfish/Stockfish), which is also GPLv3-licensed. Stockfish is not bundled — users download it separately. See [THIRD_PARTY_NOTICES](THIRD_PARTY_NOTICES) for details.
 
-## 💡 Roadmap
-
-- [ ] User auth and stats
-- [ ] Puzzle tagging and filtering
-- [ ] Elo-style puzzle rating
-- [ ] Daily challenge mode
-- [ ] Multiplayer / head-to-head tactics race
-
-## 🧠 Why I Built This
-
-Chess puzzles are a great way to train tactics - but most platforms don’t explain *why* a move fails. This trainer lets you not only fail, but *understand your failure*, with full engine context.
-
-## 👐 Contributing
-
-Pull requests are welcome!  
-You can:
-- Add new puzzles
-- Improve UI/UX
-- Suggest new modes or settings
-- Help with refactors or documentation
-
-Start with an issue or drop a comment in the Discussions tab.
-
-## 📄 License
-
-MIT
-
-## 👋 Author
+## Author
 
 Built by [Luca Bienz](https://github.com/LucaBienz)
